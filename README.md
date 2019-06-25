@@ -1,1 +1,1 @@
-# Django
+# Django project - Klaudia Korczak
