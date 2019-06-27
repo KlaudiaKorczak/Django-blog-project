@@ -2,21 +2,25 @@
 
 {% block content %}
 {% for painting in paintings_data.all %}
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6 order-lg-2">
-          <div class="p-5">
-            <img class="img-fluid" src={{ painting.image.url }} alt="">
-          </div>
-        </div>
-        <div class="col-lg-6 order-lg-1">
-          <div class="p-5">
-            <h2 class="display-4">{{ painting.title }}</h2>
-            <p>{{ painting.description }}</p>
-            <p>{{ painting.image.url }}</p>
-          </div>
-        </div>
+
+<div class="container">
+  <div class="row align-items-center">
+    <div class="col-lg-6 order-lg-2">
+      <div class="p-3">
+        <img class="img-fluid shadow-lg p-3 mb-5 bg-white rounded" src={{ painting.image.url }} alt="">
       </div>
     </div>
+    <div class="col-lg-6 order-lg-1">
+      <div class="p-5">
+        <h1 class="display-4"><strong>{{ painting.title }}</strong></h1>
+        <small><em>{{ painting.details }}</em></small>
+        <p>{{ painting.description }}</p>
+        <footer class=" text-right blockquote-footer">Created <cite>{{ painting.create_date }}</cite></footer>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endfor %}
 {% endblock %}
+

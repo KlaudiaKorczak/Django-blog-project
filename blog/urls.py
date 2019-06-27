@@ -24,7 +24,10 @@ urlpatterns = [
     path('', portfolio.views.home, name='home'),
     path('about/', portfolio.views.about, name='about'),
     path('paintings/', portfolio.views.paintings, name='paintings'),
-    path('questionnaire/', portfolio.views.questionnaire, name='questionnaire'),
+    path('contact/', portfolio.views.contact, name='contact'),
+    path('polling/', portfolio.views.polling, name='polling'),
+    path('<int:question_id>/results/', portfolio.views.results, name='results'),
+    path('vote/', portfolio.views.vote, name='vote'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

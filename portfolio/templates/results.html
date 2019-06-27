@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+{{q.question_text}}
+
+<p>
+    {% for key, value in result.items %}
+    {{key}}
+    {% endfor %}
+</p>
+{% endblock %}
