@@ -1,8 +1,6 @@
-from django.http import HttpResponse, Http404, HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
+from django.shortcuts import render
 
-from .models import Paintings, Question, Choice
+from .models import Paintings, Question
 from .utils.results import Results
 
 # Create your views here.
@@ -26,17 +24,13 @@ def polling(request):
     return render(request, 'polling.html', {'questions': questions})
 
 
-def results(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    result1 = {"cos1":"cos1", "cos2": "cos2"}
-    context = {"result": result1, "q": question}
-    return render(request, 'results.html', context)
+def results(request):
+    questions = Question.objects
 
+    q_data = request.POST.dict()
+    statistics = Results.get_results(q_data)
 
-def vote(request):
-
-    return HttpResponse(request)
-        # return HttpResponseRedirect(reverse('results', args=(question.id,)))
+    return render(request, 'results.html', {'statistics': statistics, 'questions': questions})
 
 
 def contact(request):

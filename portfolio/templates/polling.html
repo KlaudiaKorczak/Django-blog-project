@@ -3,21 +3,29 @@
 {% block content %}
 
 {% if questions %}
-    <form action="{% url 'vote' %}" method="post">
-        {% for question in questions.all %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12">
+    <form action="{% url 'results' %}" method="post" class="text-left">
         {% csrf_token %}
-            <div clas="text-center">
-                <h><strong>{{ question.question_text }}</strong></h>
+        {% for question in questions.all %}
+            <div>
+                <p class="m-2"><strong>{{ question.question_text }}</strong></p>
                 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
                 <div>
                 {% for choice in question.choice_set.all %}
-                    <input type="radio" name="{{ question.id }}" id="choice{{ forloop.counter }}" value="{{ choice.id }}" multiple>
-                    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
-                {% endfor %}</div>
+                    <input type="radio" name="{{ question.id }}" id="choice_{{ question.id }}_{{ forloop.counter }}" value="{{ choice.id }}" multiple required>
+                    <small><label for="choice_{{ question.id }}_{{ forloop.counter }}">{{ choice.choice_text }}</label></small><br>
+                {% endfor %}
+                </div>
             </div>
         {% endfor %}
-        <input type="submit" value="Vote">
+        <input type="submit" value="Send">
     </form>
+    </div>
+</div>
+  </div>
+
 
 {% else %}
     <p>No forms are available.</p>
