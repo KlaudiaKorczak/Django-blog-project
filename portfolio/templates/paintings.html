@@ -1,6 +1,8 @@
 {% extends "base.html" %}
+{% load widget_tweaks %}
 
 {% block content %}
+
 {% for painting in paintings_data.all %}
 
 <div class="container">
@@ -22,5 +24,52 @@
 </div>
 
 {% endfor %}
+
+
+<div class="container">
+<!--<div class="row justify-content-md-center">-->
+    <div class="card mb-2 wow fadeIn">
+          {% with current_comments.count as total_comments %}
+      <h> {{total_comments }} comment {{total_comments|pluralize }}</h>
+      {% endwith %}
+    {% for comment in current_comments.all %}
+      <div>
+        <p class="info">Comment by {{comment.name }} {{ comment.created }}</p>
+        {{ comment.body|linebreaks }}
+      </div>
+    {% empty %}
+      <p>
+      There are o comments yet.
+      </p>
+    {% endfor %}
+  </div>
+<!--</div>-->
+  <div class="row justify-content-lg-center">
+  <div class="card mb-2 wow fadeIn">
+      <div class="card-header font-weight-bold">Leave a comment</div>
+      <div class="card-body">
+          <form action="{% url 'comments' %}" method="post">
+            {% csrf_token %}
+            {% for field in comment_form %}
+            <div class="form-group {%if field.errors %}alert alert-danger{%endif%}">
+
+
+              {{ field.label_tag }}
+              {% render_field field class="form-control" %}
+
+            </div>
+            {% endfor %}
+
+            <div class="text-center mt-4">
+              <input type="submit" value="Post">
+                <!--<button class="btn btn-info btn-md" type="submit">Post</button>-->
+            </div>
+          </form>
+      </div>
+  </div>
+  </div>
+
+</div>
+
 {% endblock %}
 
