@@ -26,50 +26,56 @@
 {% endfor %}
 
 
-<div class="container">
-<!--<div class="row justify-content-md-center">-->
-    <div class="card mb-2 wow fadeIn">
-          {% with current_comments.count as total_comments %}
-      <h> {{total_comments }} comment {{total_comments|pluralize }}</h>
-      {% endwith %}
-    {% for comment in current_comments.all %}
-      <div>
-        <p class="info">Comment by {{comment.name }} {{ comment.created }}</p>
-        {{ comment.body|linebreaks }}
-      </div>
+<!--comments-->
+
+<div class="container comments-group">
+    <div class="row text-right">
+         <div class="col align-self-end">
+        {% with current_comments.count as total_comments %}
+            <h class="text-right"> {{total_comments }} comment{{total_comments|pluralize }}</h>
+        {% endwith %}
+         </div>
+    </div>
+        {% for comment in current_comments.all %}
+    <div class="row">
+            <div class="col"><p class="info"><strong>{{comment.name }}</strong></p></div>
+            <div class="col text-right"><p><small>{{comment.created }}</small></p></div>
+    </div>
+    <div class="row">
+        <small>{{comment.body }}</small>
+    </div>
     {% empty %}
       <p>
-      There are o comments yet.
+      There are no comments yet.
       </p>
     {% endfor %}
-  </div>
-<!--</div>-->
-  <div class="row justify-content-lg-center">
-  <div class="card mb-2 wow fadeIn">
-      <div class="card-header font-weight-bold">Leave a comment</div>
-      <div class="card-body">
-          <form action="{% url 'comments' %}" method="post">
-            {% csrf_token %}
-            {% for field in comment_form %}
-            <div class="form-group {%if field.errors %}alert alert-danger{%endif%}">
 
 
-              {{ field.label_tag }}
-              {% render_field field class="form-control" %}
+    <div class="row justify-content-md-center comments-form">
+        <div class="card col-sm-10 wow fadeIn ">
+            <div class="card-header font-weight-bold">Leave a comment</div>
+            <div class="card-body">
+              <form action="{% url 'paintings' %}" method="post">
+                {% csrf_token %}
+                {% for field in comment_form %}
+                <div class="form-group {%if field.errors %}alert alert-danger{%endif%}">
 
+                  {{ field.label_tag }}
+                  {% render_field field class="form-control" %}
+
+                </div>
+                {% endfor %}
+                <div class="text-center mt-4">
+                  <input type="submit" value="Post">
+                </div>
+              </form>
             </div>
-            {% endfor %}
-
-            <div class="text-center mt-4">
-              <input type="submit" value="Post">
-                <!--<button class="btn btn-info btn-md" type="submit">Post</button>-->
-            </div>
-          </form>
       </div>
-  </div>
-  </div>
+    </div>
+
 
 </div>
+
 
 {% endblock %}
 

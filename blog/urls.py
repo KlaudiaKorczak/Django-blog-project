@@ -23,11 +23,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', portfolio.views.home, name='home'),
     path('about/', portfolio.views.about, name='about'),
+    path('success/', portfolio.views.success, name='success'),
     path('paintings/', portfolio.views.paintings, name='paintings'),
     path('contact/', portfolio.views.contact, name='contact'),
     path('polling/', portfolio.views.polling, name='polling'),
     path('results/', portfolio.views.results, name='results'),
-    path('paintings/comments/', portfolio.views.comments, name='comments'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
