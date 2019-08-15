@@ -2,7 +2,7 @@ from django.core.mail import send_mail, BadHeaderError, EmailMessage
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
-
+from blog import settings
 from .models import Paintings, Question, Comment
 from .forms import CommentForm, ContactForm
 from .utils.results import Results
@@ -56,10 +56,10 @@ def contact(request):
         if contact_form.is_valid():
             email_from = contact_form.cleaned_data['email_from']
             name = contact_form.cleaned_data['name']
-            subject = 'Blog contact: message from user %s' % name
+            subject = 'Blog: message from user {} - {}'.format(name, email_from)
             message = contact_form.cleaned_data['message']
             try:
-                send_mail(subject, message, email_from, ['klaudiakor95@gmail.com'])
+                send_mail(subject, message, settings.EMAIL_HOST_USER, [settings.EMAIL_HOST_USER])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
             return redirect('success')
