@@ -8,8 +8,7 @@ from portfolio.models import Choice, Comment, Paintings, Question
 logging.basicConfig(level=logging.INFO)
 
 
-NAMES_MAPPING = [{'model': Comment, 'csv_file': 'comment.csv'},
-                 {'model': Paintings, 'csv_file': 'paintings.csv'},
+NAMES_MAPPING = [{'model': Paintings, 'csv_file': 'paintings.csv'},
                  {'model': Question, 'csv_file': 'question.csv'}]
 
 APP_PATH = Path(__file__).parents[2]

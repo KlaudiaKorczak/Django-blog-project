@@ -1,11 +1,11 @@
 from django.core.mail import send_mail, BadHeaderError, EmailMessage
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from blog import settings
-from .models import Paintings, Question, Comment
+from .models import Paintings, Question, Choice, Comment
 from .forms import CommentForm, ContactForm
-from .utils.results import Results
+from .utils.data import Data
 
 
 def home(request):
@@ -40,12 +40,21 @@ def polling(request):
 
 
 def results(request):
-    questions = Question.objects
-
-    q_data = request.POST.dict()
-    statistics = Results.get_results(q_data)
+    questions = Question.objects.all()
+    statistics = Data.get_results(questions)
 
     return render(request, 'results.html', {'statistics': statistics, 'questions': questions})
+
+
+def vote(request):
+    q_data = request.POST.dict()
+    selected_choices = Data.get_poll_dict(q_data)
+    for question_id, choice_id in selected_choices.items():
+        question = get_object_or_404(Question, pk=question_id)
+        choice = question.choice_set.get(pk=choice_id)
+        choice.votes += 1
+        choice.save()
+    return HttpResponseRedirect(reverse('results'))
 
 
 def contact(request):

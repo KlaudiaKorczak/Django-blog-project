@@ -27,6 +27,7 @@ urlpatterns = [
     path('paintings/', portfolio.views.paintings, name='paintings'),
     path('contact/', portfolio.views.contact, name='contact'),
     path('polling/', portfolio.views.polling, name='polling'),
+    path('vote/', portfolio.views.vote, name='vote'),
     path('results/', portfolio.views.results, name='results'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

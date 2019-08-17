@@ -6,7 +6,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-12">
-    <form action="{% url 'results' %}" method="post" class="text-left">
+    <form action="{% url 'vote' %}" method="post" class="text-left">
         {% csrf_token %}
         {% for question in questions.all %}
             <div>
