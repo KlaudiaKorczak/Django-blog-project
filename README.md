@@ -22,11 +22,10 @@ type these commands from project directory:
 
     To exit venv: `deactivate`
 
-2) create secret key, copy this key from new secretkey.txt file and paste it into the settings.py -> SECRET_KEY
+2) Create secret key
 
-    `python manage.py generate_secret_key`
-    Store this in Your secret file as `SECRET_KEY` with `EMAIL` and `PASSWORD` for the contact possibility,
-    in the `secret_settings.py` in the main project drectory.
+    ```python manage.py generate_secret_key```
+ Copy this key from new secretkey.txt file and paste it into Your new secret file `secret_settings.py` as `SECRET_KEY`. Store this with `EMAIL` and `PASSWORD` for the contact possibility, in the secret file in the main project drectory.
 
 3) Load data and make db migration
     ```
